@@ -1,4 +1,6 @@
 import pandas as pd
+from parameters import (tickdata_start, tickdata_end,
+                        dailydata_start, dailydata_end)
 
 
 def drop_consecutive(s):
@@ -6,9 +8,6 @@ def drop_consecutive(s):
 
 quotes = pd.read_pickle('quotes.pickle')
 daily_prices = pd.read_pickle('daily_prices.pickle')
-
-closing_time = pd.to_timedelta('16:15:00')
-daily_prices.index += closing_time
 
 mids = drop_consecutive(quotes[['Bid Price', 'Ask Price']].mean(axis=1))
 
@@ -19,5 +18,5 @@ rolling_contract_adjust = (daily_prices.loc['2013-09-13', 'Open'].values[0]
 
 pd.concat([mids.loc['ESU13'],
            mids.loc['ESZ13'] + rolling_contract_adjust,
-           daily_prices.loc[:'2013-09-23', 'Last']]
+           daily_prices.loc[dailydata_start:, 'Last']]
           ).to_pickle('prices.pickle')

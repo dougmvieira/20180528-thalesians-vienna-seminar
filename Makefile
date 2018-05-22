@@ -9,8 +9,8 @@ ES_Quotes.csv: ES_Sample.zip
 quotes.pickle: parse_csv.py ES_Quotes.csv
 	python3 parse_csv.py
 
-daily_prices.pickle: quandl_fetcher.py
+daily_prices.pickle: quandl_fetcher.py parameters.py
 	python3 quandl_fetcher.py
 
-prices.pickle: price_merger.py quotes.pickle daily_prices.pickle
+prices.pickle: price_merger.py parameters.py quotes.pickle daily_prices.pickle
 	python3 price_merger.py
