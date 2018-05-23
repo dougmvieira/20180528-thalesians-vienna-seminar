@@ -1,4 +1,4 @@
-all: prices.pickle
+all: prices.pickle simulation.pickle
 
 ES_Sample.zip:
 	wget https://s3-us-west-2.amazonaws.com/tick-data-s3/downloads/ES_Sample.zip
@@ -14,3 +14,6 @@ daily_prices.pickle: quandl_fetcher.py parameters.py
 
 prices.pickle: price_merger.py parameters.py quotes.pickle daily_prices.pickle
 	python3 price_merger.py
+
+simulation.pickle: heston_simulation.py parameters.py
+	python3 heston_simulation.py
