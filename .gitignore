@@ -1,4 +1,7 @@
 __pycache__
+reveal.js
 *.csv
+*.html
 *.pickle
+*.tar.gz
 *.zip

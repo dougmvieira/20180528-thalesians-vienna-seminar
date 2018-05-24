@@ -1,4 +1,4 @@
-all: prices.pickle simulation.pickle
+all: MicrostructureOfOptionPrices.html
 
 ES_Sample.zip:
 	wget https://s3-us-west-2.amazonaws.com/tick-data-s3/downloads/ES_Sample.zip
@@ -17,3 +17,11 @@ prices.pickle: price_merger.py parameters.py quotes.pickle daily_prices.pickle
 
 simulation.pickle: heston_simulation.py parameters.py
 	python3 heston_simulation.py
+
+reveal.js:
+	wget https://github.com/hakimel/reveal.js/archive/master.tar.gz
+	tar -xzvf master.tar.gz
+	mv reveal.js-master reveal.js
+
+MicrostructureOfOptionPrices.html: MicrostructureOfOptionPrices.md reveal.js
+	pandoc -s -t revealjs --toc --toc-depth=1 -o MicrostructureOfOptionPrices.html MicrostructureOfOptionPrices.md
