@@ -23,5 +23,8 @@ reveal.js:
 	tar -xzvf master.tar.gz
 	mv reveal.js-master reveal.js
 
-MicrostructureOfOptionPrices.html: MicrostructureOfOptionPrices.md reveal.js
-	pandoc -s -t revealjs --toc --toc-depth=1 -o MicrostructureOfOptionPrices.html MicrostructureOfOptionPrices.md
+lob.html: lob.py bokeh_template.jinja
+	python3 lob.py
+
+MicrostructureOfOptionPrices.html: MicrostructureOfOptionPrices.md lob.html reveal.js
+	pandoc -s -t revealjs -V theme=white --toc --toc-depth=1 -V toc-title:"Outline" -o MicrostructureOfOptionPrices.html MicrostructureOfOptionPrices.md
