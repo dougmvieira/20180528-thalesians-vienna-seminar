@@ -26,5 +26,8 @@ reveal.js:
 lob.html: lob.py bokeh_template.jinja
 	python3 lob.py
 
-MicrostructureOfOptionPrices.html: MicrostructureOfOptionPrices.md References.bib lob.html reveal.js
+sp500.html heston.html rounded_heston.html: sp500_plots.py prices.pickle simulation.pickle
+	python3 sp500_plots.py
+
+MicrostructureOfOptionPrices.html: MicrostructureOfOptionPrices.md References.bib lob.html sp500.html heston.html rounded_heston.html reveal.js
 	pandoc -s -c scrollable.css -t revealjs -V theme=white --mathjax --toc --toc-depth=1 -o MicrostructureOfOptionPrices.html --bibliography References.bib MicrostructureOfOptionPrices.md

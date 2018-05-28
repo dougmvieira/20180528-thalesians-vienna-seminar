@@ -16,7 +16,9 @@ rolling_contract_adjust = (daily_prices.loc['2013-09-13', 'Open'].values[0]
                            - mids.loc['ESZ13'].values[0]
                            + mids.loc['ESU13'].values[-1])
 
-pd.concat([mids.loc['ESU13'],
-           mids.loc['ESZ13'] + rolling_contract_adjust,
-           daily_prices.loc[dailydata_start:, 'Last']]
-          ).to_pickle('prices.pickle')
+prices = pd.concat([mids.loc['ESU13'],
+                    mids.loc['ESZ13'] + rolling_contract_adjust,
+                    daily_prices.loc[dailydata_start:, 'Last']])
+prices.index.name = 'Time'
+
+prices.to_pickle('prices.pickle')

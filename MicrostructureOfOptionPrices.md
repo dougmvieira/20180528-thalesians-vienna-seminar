@@ -46,6 +46,8 @@ date: Vienna, 28 May 2018
 
 ## S&P 500 futures example
 
+## {data-background-iframe="sp500.html"}
+
 ## Heston model example
 
 - The price $S$ follows the SDE
@@ -56,6 +58,8 @@ $$\begin{align}
   d[W, Z]_t & = \rho dt \end{align}$$
 
 - Market state is the pair $(S, V)$
+
+## {data-background-iframe="heston.html"}
 
 ## Options dynamics representation
 
@@ -89,17 +93,13 @@ $$ \text{where } \varphi(x) = \mathbb E[f(X_T)\mid X_t=x]. $$
 
 $$ dX_t = \mu_t dt + \sigma_t dW_t, $$
 
-then
+$$ \text{then } \frac{X_t - \tilde X_t}{\sqrt{t}} \xrightarrow{L^2} 0, $$
 
-$$ \frac{X_t - \tilde X_t}{\sqrt{t}} \xrightarrow{L^2} 0, $$
-
-where
-
-$$ d\tilde X_t = \sigma_0 dW_t. $$
-
-## Heston model example revisited
+$$ \text{where } d\tilde X_t = \sigma_0 dW_t. $$
 
 ## S&P 500 futures example revisited
+
+## {data-background-iframe="sp500.html"}
 
 ## Stylised microstructure effects
 
@@ -114,6 +114,8 @@ $$ d\tilde X_t = \sigma_0 dW_t. $$
 - see [@rosenbaum2009integrated]
 
 ## Rounded Heston model example
+
+## {data-background-iframe="rounded_heston.html"}
 
 
 # Conclusion

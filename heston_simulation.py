@@ -13,6 +13,10 @@ def simulate_cir(x0, kappa, theta, sigma, d, dW):
                 + sigma*np.sqrt(x[i-1])*dW[i-1])
     return x
 
+def logspace(start, stop, min_step, max_step):
+    num = np.ceil(-np.log(min_step/(stop - start))/np.log(1 + max_step/(stop - start)))
+    scales = (1 + max_step/(stop - start))**np.arange(-num, 0)
+    return start.to_datetime64() + scales*(stop - start)
 
 np.random.seed(42)
 
@@ -25,25 +29,20 @@ mu = 3.9*np.sqrt(1 - rho**2)
 v0 = theta
 s0 = 1640
 
-fine_step = pd.to_timedelta('0.1s')
-coarse_step = pd.to_timedelta('10s')
 year = pd.to_timedelta('365.25d')
+min_timestep = pd.to_timedelta('1ns')
+max_timestep = pd.to_timedelta('6h')
 
-fine_timestamps = np.arange(tickdata_start, tickdata_end, fine_step) + fine_step
-coarse_timestamps = np.arange(tickdata_end, dailydata_end, coarse_step
-                              ) + coarse_step
-
-time_steps = pd.concat([pd.Series(fine_step/year, fine_timestamps),
-                        pd.Series(coarse_step/year, coarse_timestamps)])
+timestamps = logspace(tickdata_start, dailydata_end, min_timestep, max_timestep)
+time_steps = pd.Series((timestamps[1:] - timestamps[:-1])/year, timestamps[1:])
 innovations = pd.concat(2*[np.sqrt(time_steps)], axis=1, keys=['Price', 'Vol']
                         )*np.random.randn(len(time_steps), 2)
-simulation_index = np.insert(time_steps.index, 0, tickdata_start)
 
 vol = pd.Series(simulate_cir(v0, kappa, theta, nu,
                              time_steps.values, innovations['Vol'].values),
-                simulation_index, name='Vol')
+                timestamps, name='Vol')
 
-price = pd.Series(np.log(s0), simulation_index, name='Price')
+price = pd.Series(np.log(s0), timestamps, name='Price')
 price.iloc[1:] = ((mu - 0.5)*vol.shift().iloc[1:]*time_steps
                   + np.sqrt(vol.shift().iloc[1:])
                     *(rho*innovations['Vol']
@@ -51,4 +50,6 @@ price.iloc[1:] = ((mu - 0.5)*vol.shift().iloc[1:]*time_steps
 price = np.exp(price.cumsum())
 
 simulation = pd.concat([price, vol], axis=1)
+simulation.index.name = 'Time'
+
 simulation.to_pickle('simulation.pickle')
