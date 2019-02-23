@@ -50,7 +50,7 @@ slider = bokeh.models.widgets.Slider(start=0, end=6, value=0, step=0.1,
 slider.js_on_change('value', callback)
 
 html = bokeh.embed.file_html([p, slider], bokeh.resources.CDN)
-with open('sp500.html', 'w') as f:
+with open('20180528/sp500.html', 'w') as f:
     f.write(html)
 
 
@@ -102,7 +102,7 @@ slider.js_on_change('value', callback)
 
 combined = bokeh.layouts.column(p1, p2, sizing_mode="stretch_both")
 html = bokeh.embed.file_html([combined, slider], bokeh.resources.CDN)
-with open('heston.html', 'w') as f:
+with open('20180528/heston.html', 'w') as f:
     f.write(html)
 
 
@@ -139,5 +139,5 @@ slider = bokeh.models.widgets.Slider(start=0, end=6, value=0, step=0.1,
 slider.js_on_change('value', callback)
 
 html = bokeh.embed.file_html([p, slider], bokeh.resources.CDN)
-with open('rounded_heston.html', 'w') as f:
+with open('20180528/rounded_heston.html', 'w') as f:
     f.write(html)

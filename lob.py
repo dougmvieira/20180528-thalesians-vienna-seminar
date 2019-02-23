@@ -49,5 +49,5 @@ with open('bokeh_template.jinja', 'r') as f:
     template = jinja2.Template(f.read())
 html = bokeh.embed.file_html(combined, bokeh.resources.CDN, template=template)
 
-with open('lob.html', 'w') as f:
+with open('20180528/lob.html', 'w') as f:
     f.write(html)

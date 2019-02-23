@@ -1,4 +1,4 @@
-all: MicrostructureOfOptionPrices.html
+all: 20180528-thalesians-vienna-seminar.html
 
 ES_Sample.zip:
 	wget https://s3-us-west-2.amazonaws.com/tick-data-s3/downloads/ES_Sample.zip
@@ -18,16 +18,13 @@ prices.pickle: price_merger.py parameters.py quotes.pickle daily_prices.pickle
 simulation.pickle: heston_simulation.py parameters.py
 	python3 heston_simulation.py
 
-reveal.js:
-	wget https://github.com/hakimel/reveal.js/archive/master.tar.gz
-	tar -xzvf master.tar.gz
-	mv reveal.js-master reveal.js
-
-lob.html: lob.py bokeh_template.jinja
+20180528/lob.html: lob.py bokeh_template.jinja
+	mkdir -p 20180528
 	python3 lob.py
 
-sp500.html heston.html rounded_heston.html: sp500_plots.py prices.pickle simulation.pickle
+20180528/sp500.html 20180528/heston.html 20180528/rounded_heston.html: sp500_plots.py prices.pickle simulation.pickle
+	mkdir -p 20180528
 	python3 sp500_plots.py
 
-MicrostructureOfOptionPrices.html: MicrostructureOfOptionPrices.md References.bib lob.html sp500.html heston.html rounded_heston.html reveal.js
-	pandoc -s -c scrollable.css -t revealjs -V theme=white --mathjax --toc --toc-depth=1 -o MicrostructureOfOptionPrices.html --bibliography References.bib MicrostructureOfOptionPrices.md
+20180528-thalesians-vienna-seminar.html: MicrostructureOfOptionPrices.md References.bib 20180528/lob.html 20180528/sp500.html 20180528/heston.html 20180528/rounded_heston.html
+	pandoc -s -c scrollable.css -t revealjs -V theme=white --mathjax --toc --toc-depth=1 -o 20180528-thalesians-vienna-seminar.html --bibliography References.bib MicrostructureOfOptionPrices.md
