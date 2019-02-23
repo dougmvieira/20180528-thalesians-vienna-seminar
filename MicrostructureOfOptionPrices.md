@@ -149,4 +149,14 @@ $$ d\tilde C_t = \nabla_x\varphi(X_0) d\tilde X_t $$
   - Long time dependency manifests locally as dependency to volatility process
   - Microstructure effects disappear at long horizons
 
+## Thank you!
+
+- This presentation is available at
+
+<https://github.com/dougmvieira/presentations>
+
+- The source code for this presentation is available at
+
+<https://github.com/dougmvieira/20180528-thalesians-vienna-seminar>
+
 ## References {.scrollable}
