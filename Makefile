@@ -27,4 +27,4 @@ simulation.pickle: heston_simulation.py parameters.py
 	python3 sp500_plots.py
 
 20180528-thalesians-vienna-seminar.html: MicrostructureOfOptionPrices.md References.bib 20180528/lob.html 20180528/sp500.html 20180528/heston.html 20180528/rounded_heston.html
-	pandoc -s -c scrollable.css -t revealjs -V theme=white --mathjax --toc --toc-depth=1 -o 20180528-thalesians-vienna-seminar.html --bibliography References.bib MicrostructureOfOptionPrices.md
+	pandoc -s -c scrollable.css -t revealjs -V theme=white -V revealjs-url=. --mathjax --toc --toc-depth=1 -o 20180528-thalesians-vienna-seminar.html --bibliography References.bib MicrostructureOfOptionPrices.md
